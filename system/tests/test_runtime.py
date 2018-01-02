@@ -1,5 +1,6 @@
  
 # coding=utf-8
+import glob
 import os
 import unittest
 
@@ -148,3 +149,8 @@ parent script stash
 [stash]$ """
         self.do_test('test_12.py', cmp_str)
 
+    def test_imports(self):
+        os.chdir('bin/')
+        for pyfile in glob.iglob('bin/*.py'):
+            pycmd = os.path.basename(pyfile.replace('.py', ''))
+            importlib.import_module(pycmd, package='bin.')
